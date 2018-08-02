@@ -1,0 +1,10 @@
+<div class="f1-champions-list">
+  <div class="season-selector">
+    <select class="season-selector-select" [(ngModel)]="currentSeason" (ngModelChange)="selectSeason()" ngDefaultControl>
+      <option [value]="season" *ngFor="let season of SEASON_LIST">{{season}}</option>
+    </select>
+  </div>
+  <div>
+    <app-season-detail-table></app-season-detail-table>
+  </div>
+</div>
