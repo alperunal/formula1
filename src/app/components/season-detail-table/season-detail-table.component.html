@@ -10,7 +10,7 @@
   </tr>
   </thead>
   <tbody class="season-table-body">
-  <tr *ngFor="let race of races">
+  <tr *ngFor="let race of races; trackBy: trackByFn">
     <td [ngClass]="race.Results[0].Driver.isWinner ? 'season-table-row-winner' : ''">{{race.round}}</td>
     <td [ngClass]="race.Results[0].Driver.isWinner ? 'season-table-row-winner' : ''"><a href="{{race.url}}">{{race.raceName}}</a></td>
     <td [ngClass]="race.Results[0].Driver.isWinner ? 'season-table-row-winner' : ''">{{race.date}}</td>

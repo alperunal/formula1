@@ -9,16 +9,18 @@ import {ErgastService} from '../../services/ergast.service';
 export class SeasonDetailTableComponent implements OnInit {
   public races: Array<any> = [];
 
-  constructor(public ergastService: ErgastService) {
-
-  }
+  constructor(public ergastService: ErgastService) {}
 
   ngOnInit() {
     this.ergastService.raceDetailsUpdated.subscribe(val => {
-        this.races = this.ergastService.raceDetails;
+      this.races = this.ergastService.raceDetails;
     });
 
     this.ergastService.getRaceDetails();
+  }
+
+  trackByFn(index, item) {
+    return index; // or item.id
   }
 
 }
