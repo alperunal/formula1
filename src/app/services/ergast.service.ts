@@ -1,6 +1,6 @@
 import {EventEmitter, Injectable} from '@angular/core';
-import {HttpClient, HttpParams} from '@angular/common/http';
-import {Observable, pipe, forkJoin} from 'rxjs';
+import {HttpClient, HttpErrorResponse} from '@angular/common/http';
+import {forkJoin} from 'rxjs';
 import {map} from 'rxjs/operators';
 
 @Injectable()
@@ -23,6 +23,10 @@ export class ErgastService {
       this.normalizer(results[0], results[1]);
       this.raceDetailsUpdated.emit(true);
       this.isLoading = false;
+    }, (err: HttpErrorResponse) => {
+      if(err instanceof Error) {
+        alert('Error! Please check your internet connection.');
+      }
     });
   }
 
