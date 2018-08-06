@@ -11,12 +11,26 @@
   </thead>
   <tbody class="season-table-body">
   <tr *ngFor="let race of races; trackBy: trackByFn">
-    <td [ngClass]="race.Results[0].Driver.isWinner ? 'season-table-row-winner' : ''">{{race.round}}</td>
-    <td [ngClass]="race.Results[0].Driver.isWinner ? 'season-table-row-winner' : ''"><a href="{{race.url}}">{{race.raceName}}</a></td>
-    <td [ngClass]="race.Results[0].Driver.isWinner ? 'season-table-row-winner' : ''">{{race.date}}</td>
-    <td [ngClass]="race.Results[0].Driver.isWinner ? 'season-table-row-winner' : ''">{{race.Circuit.Location.country}}</td>
-    <td [ngClass]="race.Results[0].Driver.isWinner ? 'season-table-row-winner' : ''" ><a href="{{race?.Results[0].Driver?.url}}">{{race?.Results[0].Driver?.givenName}} {{race?.Results[0].Driver?.familyName}}</a></td>
-    <td [ngClass]="race.Results[0].Driver.isWinner ? 'season-table-row-winner' : ''" ><a href="{{race?.Results[0].Constructor?.url}}">{{race?.Results[0].Constructor?.name}}</a></td>
+    <td [ngClass]="{'season-table-row-winner':race.raceWinner.Driver.isWinner}">
+      {{race.round}}
+    </td>
+    <td [ngClass]="{'season-table-row-winner':race.raceWinner.Driver.isWinner}">
+      <a href="{{race.grandPrix.url}}">{{race.grandPrix.name}}</a>
+    </td>
+    <td [ngClass]="{'season-table-row-winner':race.raceWinner.Driver.isWinner}">
+      {{race.date}}
+    </td>
+    <td [ngClass]="{'season-table-row-winner':race.raceWinner.Driver.isWinner}">
+      {{race.location}}
+    </td>
+    <td [ngClass]="{'season-table-row-winner':race.raceWinner.Driver.isWinner}">
+      <a href="{{race.raceWinner.Driver.url}}">
+        {{race.raceWinner.Driver.givenName}} {{race.raceWinner.Driver.familyName}}
+      </a>
+    </td>
+    <td [ngClass]="{'season-table-row-winner':race.raceWinner.Driver.isWinner}">
+      <a href="{{race.raceWinner.Constructor.url}}">{{race.raceWinner.Constructor.name}}</a>
+    </td>
   </tr>
   </tbody>
 </table>

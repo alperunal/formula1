@@ -3,7 +3,6 @@ import {HttpClient, HttpParams} from '@angular/common/http';
 import {Observable, pipe, forkJoin} from 'rxjs';
 import {map} from 'rxjs/operators';
 
-
 @Injectable()
 export class ErgastService {
   private readonly URL: string = 'http://ergast.com/api/f1';
@@ -15,23 +14,40 @@ export class ErgastService {
 
   public getRaceDetails(year: string = '2005') {
     this.isLoading = true;
-    const seasons = this.http.get(`${this.URL}/${year}.json`).pipe(map(r => r));
-    const drivers = this.http.get(`${this.URL}/${year}/results.json?limit=1000`).pipe(map(r => r));
-    const standings = this.http.get(`${this.URL}/${year}/driverStandings.json`).pipe(map(r => r));
+    const seasonResults = this.http.get(`${this.URL}/${year}/results.json?limit=1000`).pipe(map(r =>
+      r['MRData'].RaceTable.Races));
+    const standings = this.http.get(`${this.URL}/${year}/driverStandings.json`).pipe(map(r =>
+      r['MRData'].StandingsTable.StandingsLists[0].DriverStandings[0].Driver.code));
 
-    forkJoin([seasons, drivers, standings]).subscribe(results =>  {
-      this.raceDetails = results[0]['MRData'].RaceTable.Races;
-      const winnerOfSeason = results[2]['MRData'].StandingsTable.StandingsLists[0].DriverStandings[0].Driver.code;
-      for(let i=0; i<this.raceDetails.length; i++) {
-        const races = results[1]['MRData'].RaceTable.Races;
-        if(races[i].Results[0].Driver.code === winnerOfSeason) {
-            races[i].Results[0].Driver.isWinner = true;
-        }
-        this.raceDetails[i] = races[i];
-      }
-
+    forkJoin([seasonResults, standings]).subscribe(results =>  {
+      this.normalizer(results[0], results[1]);
       this.raceDetailsUpdated.emit(true);
       this.isLoading = false;
+    });
+  }
+
+  normalizer(results, winnerOfSeason) {
+    this.raceDetails = [];
+    results.forEach(res => {
+      const data = {
+        round: res.round,
+        grandPrix: {
+          name: res.raceName,
+          url: res.url
+        },
+        raceWinner: {
+          Driver: res.Results[0].Driver,
+          Constructor: res.Results[0].Constructor
+        },
+        date: res.date,
+        location: res.Circuit.Location.country
+      };
+
+      if(res.Results[0].Driver.code === winnerOfSeason) {
+        data.raceWinner.Driver.isWinner = true;
+      }
+
+      this.raceDetails.push(data);
     });
   }
 
