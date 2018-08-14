@@ -40,6 +40,18 @@ $border-style: 1px solid #ECECEC;
   }
 }
 
+.season-selector {
+
+  margin: 20px 0;
+
+  &-select {
+    width: 300px;
+    height: 40px;
+    font-size: 16px;
+  }
+
+}
+
 /* Loading Spinner */
 .lds-default {
   display: inline-block;

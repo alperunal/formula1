@@ -1,0 +1,64 @@
+<div>
+  <div class="season-selector">
+    <select class="season-selector-select" [(ngModel)]="currentSeason" (ngModelChange)="selectSeason()" ngDefaultControl>
+      <option [value]="season" *ngFor="let season of SEASON_LIST">{{season}}</option>
+    </select>
+  </div>
+  <div>
+    <table class="season-table" *ngIf="!ergastService.getIsLoading()">
+      <thead class="season-table-head">
+      <tr>
+        <th>Round</th>
+        <th>Name</th>
+        <th>Date</th>
+        <th>Location</th>
+        <th>Driver</th>
+        <th>Constructor</th>
+      </tr>
+      </thead>
+      <tbody class="season-table-body">
+      <tr *ngFor="let race of races; trackBy: trackByFn">
+        <td [ngClass]="{'season-table-row-winner':race.raceWinner.Driver.isWinner}">
+          {{race.round}}
+        </td>
+        <td [ngClass]="{'season-table-row-winner':race.raceWinner.Driver.isWinner}">
+          <a href="{{race.grandPrix.url}}">{{race.grandPrix.name}}</a>
+        </td>
+        <td [ngClass]="{'season-table-row-winner':race.raceWinner.Driver.isWinner}">
+          {{race.date}}
+        </td>
+        <td [ngClass]="{'season-table-row-winner':race.raceWinner.Driver.isWinner}">
+          {{race.location}}
+        </td>
+        <td [ngClass]="{'season-table-row-winner':race.raceWinner.Driver.isWinner}">
+          <a href="{{race.raceWinner.Driver.url}}">
+            {{race.raceWinner.Driver.givenName}} {{race.raceWinner.Driver.familyName}}
+          </a>
+        </td>
+        <td [ngClass]="{'season-table-row-winner':race.raceWinner.Driver.isWinner}">
+          <a href="{{race.raceWinner.Constructor.url}}">{{race.raceWinner.Constructor.name}}</a>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+
+    <div class="loading-spinner-container">
+      <div class="lds-default" *ngIf="ergastService.getIsLoading()">
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+

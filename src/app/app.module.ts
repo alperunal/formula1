@@ -3,16 +3,14 @@ import {NgModule} from '@angular/core';
 
 import {AppComponent} from './app.component';
 import {ErgastService} from './services/ergast.service';
-import {SeasonDetailTableComponent} from './components/season-detail-table/season-detail-table.component';
+import {SeasonTableComponent} from './components/season-table/season-table.component';
 import {HttpClientModule} from '@angular/common/http';
-import { F1ChampionsComponent } from './components/f1-champions/f1-champions.component';
 import {FormsModule} from '@angular/forms';
 
 @NgModule({
   declarations: [
     AppComponent,
-    SeasonDetailTableComponent,
-    F1ChampionsComponent
+    SeasonTableComponent
   ],
   imports: [
     BrowserModule,
