@@ -20,26 +20,6 @@ export class ErgastService {
     this._isLoading = value;
   }
 
-  /*public getRaceDetails(year: string = '2005'): Observable<Array<Season>> {
-    this.setIsLoading(true);
-    const seasonResults = this.http.get(`${this.URL}/${year}/results.json?limit=1000`).pipe(map(r =>
-      r['MRData'].RaceTable.Races));
-    const standings = this.http.get(`${this.URL}/${year}/driverStandings.json`).pipe(map(r =>
-      r['MRData'].StandingsTable.StandingsLists[0].DriverStandings[0].Driver.code));
-
-    const res = forkJoin([seasonResults, standings]).subscribe(results =>  {
-      const raceDetails = this.normalizer(results[0], results[1]);
-      this.raceDetailsUpdated.emit(true);
-      this.setIsLoading(false);
-      return null;
-    }, (err: HttpErrorResponse) => {
-      if(err instanceof Error) {
-        alert('Error! Please check your internet connection.');
-      }
-    });
-
-  }*/
-
   public getRaceDetails(year: string = '2005'): Promise<any> {
     return new Promise((resolve, reject) => {
       this.setIsLoading(true);
