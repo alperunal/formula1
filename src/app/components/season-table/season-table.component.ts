@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {ErgastService} from '../../services/ergast.service';
 import {Season} from '../../models/season.interface';
+import {ChampionDirective} from '../../directives/champion.directive';
 
 @Component({
   selector: 'app-season-table',
