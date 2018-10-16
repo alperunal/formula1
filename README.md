@@ -12,7 +12,7 @@ Angular Installation
 
 ## Install
 
-    $ git clone https://github.com/jspduke/formula1.git
+    $ git clone https://github.com/alperunal/formula1.git
     $ cd formula1
     $ npm install
 
