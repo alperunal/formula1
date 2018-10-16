@@ -1,5 +1,7 @@
 # Formula1 App
 
+![](formula1.gif)
+
 ## Requirements
 
 Project is developed with Angular version 6.1.1.
